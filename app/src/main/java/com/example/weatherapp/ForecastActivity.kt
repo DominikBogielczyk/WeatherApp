@@ -2,6 +2,7 @@ package com.example.weatherapp
 
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.AsyncTask
 import android.os.Bundle
 import android.widget.Button
@@ -14,17 +15,19 @@ import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
 
-var clouds_v = arrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-var pop = arrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-var temperatures = arrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-var data_axis = arrayOf("","","","","","","","","","")
-var x = arrayOf("","","","","","","","","","")
-var icons = arrayOf("","","","","","","","","","")
+val size = 10
+var clouds_v = Array(size) {0}
+var pop = Array(size) {0}
+var temperatures = Array(size) {0}
+var data_axis = Array(size) {""}
+var x = Array(size) {""}
+var icons = Array(size) {""}
 
 class ForecastActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forecast)
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
         readForecast().execute()
 
@@ -90,13 +93,13 @@ class ForecastActivity : AppCompatActivity() {
                     }
 
                     for (i in 0 until cnt) {
-                        forecast_text += data_axis[i] + "               " + temperatures[i].toString() + "°C" + System.lineSeparator() + System.lineSeparator() }
+                        forecast_text += data_axis[i] + "                    " + temperatures[i].toString() + "°C" + System.lineSeparator() + System.lineSeparator() }
 
                     findViewById<TextView>(R.id.graph_txt).text = forecast_text
 
-                    val images = arrayOf(findViewById<ImageView>(R.id.image0), findViewById<ImageView>(R.id.image1), findViewById<ImageView>(R.id.image2),
-                        findViewById<ImageView>(R.id.image3), findViewById<ImageView>(R.id.image4), findViewById<ImageView>(R.id.image5),
-                        findViewById<ImageView>(R.id.image6), findViewById<ImageView>(R.id.image7), findViewById<ImageView>(R.id.image8))
+                    val images = arrayOf(findViewById<ImageView>(R.id.image0), findViewById(R.id.image1), findViewById(R.id.image2),
+                        findViewById(R.id.image3), findViewById(R.id.image4), findViewById(R.id.image5),
+                        findViewById(R.id.image6), findViewById(R.id.image7), findViewById(R.id.image8))
 
                     for(i in 0 until cnt)
                     {

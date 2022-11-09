@@ -1,6 +1,7 @@
 package com.example.weatherapp
 
 
+import android.content.pm.ActivityInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.TextView
@@ -20,6 +21,7 @@ class TempGraphActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_temp_graph)
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
 
         val data = ArrayList<Entry>()
 
@@ -27,7 +29,7 @@ class TempGraphActivity : AppCompatActivity() {
         {
             if(temp_graph)
             {
-                data.add(Entry(0f + i*1f, temperatures[i].toFloat()))
+                data.add(Entry(0f + i, temperatures[i].toFloat()))
             }
             else if(pop_graph)
             {

@@ -7,11 +7,48 @@
     android:background="@drawable/background"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/valueTemperatureMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="@+id/valueTemperature"
+        app:layout_constraintTop_toTopOf="@+id/textMaxTemperature" />
+
+    <TextView
+        android:id="@+id/valueTemperatureMin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="@+id/valueTemperature"
+        app:layout_constraintTop_toTopOf="@+id/textMinTemperature" />
+
+    <TextView
+        android:id="@+id/valueFeelsLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="@+id/valueTemperature"
+        app:layout_constraintTop_toTopOf="@+id/textFeelsLike" />
+
+    <TextView
+        android:id="@+id/valueTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin50"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textTemperature" />
+
     <ImageView
         android:id="@+id/info_view2"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="600dp"
+        android:layout_width="@dimen/bigImage"
+        android:layout_height="@dimen/bigImage"
+        android:layout_marginBottom="@dimen/margin450"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,66 +60,60 @@
         android:id="@+id/info_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="400dp"
-        android:text="More info about temperature"
+        android:layout_marginTop="@dimen/margin50"
+        android:text="@string/more_info"
         android:textColor="@android:color/holo_orange_dark"
-        android:textSize="26sp"
+        android:textSize="@dimen/textSize"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info_view2" />
+
+    <TextView
+        android:id="@+id/textFeelsLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin30"
+        android:text="@string/feels_lile"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="@dimen/textSize"
+        app:layout_constraintStart_toStartOf="@+id/textTemperature"
+        app:layout_constraintTop_toBottomOf="@+id/textTemperature" />
+
+    <TextView
+        android:id="@+id/textMinTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin30"
+        android:text="@string/min_temperature"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="@dimen/textSize"
+        app:layout_constraintStart_toStartOf="@+id/textFeelsLike"
+        app:layout_constraintTop_toBottomOf="@+id/textFeelsLike" />
+
+    <TextView
+        android:id="@+id/textTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin200"
+        android:text="@string/temperature"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="@dimen/textSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/feels_like_text"
+        android:id="@+id/textMaxTemperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="pressure"
+        android:layout_marginTop="@dimen/margin30"
+        android:text="@string/max_temperature"
         android:textColor="@android:color/holo_orange_dark"
-        android:textSize="26sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/temp_min_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="humidity"
-        android:textColor="@android:color/holo_orange_dark"
-        android:textSize="26sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/history_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:text="temperature"
-        android:textColor="@android:color/holo_orange_dark"
-        android:textSize="26sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/temp_max_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:text="wind"
-        android:textColor="@android:color/holo_orange_dark"
-        android:textSize="26sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="@dimen/textSize"
+        app:layout_constraintStart_toStartOf="@+id/textMinTemperature"
+        app:layout_constraintTop_toBottomOf="@+id/textMinTemperature" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

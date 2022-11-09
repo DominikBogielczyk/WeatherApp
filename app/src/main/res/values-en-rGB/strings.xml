@@ -5,4 +5,16 @@
     <string name="city">City:</string>
     <string name="save">Save</string>
     <string name="history">History</string>
+    <string name="toast_save_text">Data saved.</string>
+    <string name="internet_error">Please connect to the Internet.</string>
+    <string name="save_error">Save error.</string>
+    <string name="more_info">More info about temperature:</string>
+    <string name="temperature">Temperature:</string>
+    <string name="feels_lile">Feels like:</string>
+    <string name="min_temperature">Min. temperature:</string>
+    <string name="max_temperature">Max. temperature:</string>
+    <string name="rain">% RAIN</string>
+    <string name="cloudiness">% CLOUDINESS</string>
+    <string name="input_error">City not found.</string>
+    <string name="clear">Clear</string>
 </resources>

@@ -1,8 +1,11 @@
 package com.example.weatherapp
 
+import android.content.Context
 import android.content.Intent
+import android.net.wifi.WifiManager
 import android.os.AsyncTask
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
@@ -11,7 +14,6 @@ import org.json.JSONObject
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 
 var location: String = "poznan,pl"
@@ -43,72 +45,33 @@ class MainActivity : AppCompatActivity() {
         readTask().execute()
         progressBar.max = 50
 
-        val button2: Button = findViewById(R.id.language_btn);
-        val button5: Button = findViewById(R.id.history_btn);
-        val button6: Button = findViewById(R.id.save);
-        button2.setOnClickListener{
+        val btnTimeFormat: Button = findViewById(R.id.btnTimeFormat);
+        val btnHistory: Button = findViewById(R.id.history_btn);
 
+        //12H OR 24H FORMAT
+        btnTimeFormat.setOnClickListener{
             if(english)
             {
                 english = false
-                button2.text = "12h"
+                btnTimeFormat.text = "12h"
             }
             else
             {
                 english = true
-                button2.text = "24h"
+                btnTimeFormat.text = "24h"
             }
             readTask().execute()
         }
-
-        //SAVE BUTTON
-        button6.setOnClickListener{
-            //DATA TO FILE
-            val FILE_NAME = "logs.csv"
-            val fos = openFileOutput(FILE_NAME, MODE_APPEND)
-            val v1 = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH).format(Date(update_t)) + ","
-
-            try
-            {
-                fos.write((v1 + " " + loc).toByteArray())
-                //NEW LINE
-                fos.write(System.getProperty("line.separator").toByteArray());
-
-                fos.write((temp.toString() + "°C, " + humidity + "%, " + pressure_v + "hPa").toByteArray())
-                fos.write(System.getProperty("line.separator").toByteArray());
-                fos.write(System.getProperty("line.separator").toByteArray());
-
-                fos.close()
-                //  val a = filesDir
-                //  findViewById<TextView>(R.id.location).text = a.toString()
-                var toast_text : String
-                if(english)
-                {
-                    toast_text = "Data saved"
-                }
-                else
-                {
-                    toast_text = "Dane zapisano"
-                }
-                Toast.makeText(this@MainActivity, toast_text, Toast.LENGTH_SHORT).show()
-
-            }
-            catch(e: Exception)
-            {
-                findViewById<TextView>(R.id.location_txt).text = e.toString()
-            }
-        }
-
         //TEMPERATURE MORE INFO
         val button4 : Button = findViewById(R.id.temperature_btn)
-        button4.setOnClickListener{ startActivity(Intent(this, TempeatureActivity::class.java)) }
+        button4.setOnClickListener{ startActivity(Intent(this, TemperatureActivity::class.java)) }
 
         //FORECAST
         val f_btn : Button = findViewById(R.id.forecast_btn)
         f_btn.setOnClickListener{ startActivity(Intent(this, ForecastActivity::class.java)) }
 
         //HISTORY ACTIVITY
-        button5.setOnClickListener{ startActivity(Intent(this, HistoryActivity::class.java)) }
+        btnHistory.setOnClickListener{ startActivity(Intent(this, HistoryActivity::class.java)) }
 
         //CITY INPUT
         val button3 : Button = findViewById(R.id.search_btn)
@@ -128,7 +91,7 @@ class MainActivity : AppCompatActivity() {
             }
             catch (e: Exception)
             {
-                findViewById<TextView>(R.id.location_txt).text = e.toString()
+                //findViewById<TextView>(R.id.location_txt).text = e.toString()
                 data = null
             }
             return data
@@ -210,11 +173,56 @@ class MainActivity : AppCompatActivity() {
             }
             catch (e: Exception)
             {
-                val error = e.toString()
-                findViewById<TextView>(R.id.location_txt).text = error
+                val wifi = getApplicationContext().getSystemService(Context.WIFI_SERVICE) as WifiManager
+                if (!wifi.isWifiEnabled) {
+                    Toast.makeText(this@MainActivity, getString(R.string.internet_error), Toast.LENGTH_LONG).show()
+                }
+                else
+                {
+                    Toast.makeText(this@MainActivity, getString(R.string.input_error), Toast.LENGTH_SHORT).show()
+                }
+
 
             }
 
+        }
+    }
+
+    //SAVE BUTTON
+    fun save(v: View?)
+    {
+        //DATA TO FILE
+        val filename = "logs.csv"
+        val fos = openFileOutput(filename, MODE_APPEND)
+        val v1 = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH).format(Date(update_t)) + ","
+
+        try
+        {
+            fos.write(("$v1 $loc").toByteArray())
+            //NEW LINE
+            fos.write(System.getProperty("line.separator").toByteArray());
+
+            fos.write((temp.toString() + "°C, " + humidity + "%, " + pressure_v + "hPa").toByteArray())
+            fos.write(System.getProperty("line.separator").toByteArray());
+            fos.write(System.getProperty("line.separator").toByteArray());
+
+            fos.close()
+
+            var toast_text : String
+            if(english)
+            {
+                toast_text = "Data saved"
+            }
+            else
+            {
+                toast_text = "Dane zapisano"
+            }
+            Toast.makeText(this@MainActivity, getString(R.string.toast_save_text), Toast.LENGTH_SHORT).show()
+
+        }
+        catch(e: Exception)
+        {
+            Toast.makeText(this@MainActivity, getString(R.string.save_error), Toast.LENGTH_SHORT).show()
         }
     }
 
