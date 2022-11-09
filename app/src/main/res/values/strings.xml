@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <string name="search">Szukaj</string>
+    <string name="city">Miasto:</string>
+    <string name="save">Zapisz</string>
+    <string name="history">Historia</string>
+</resources>
