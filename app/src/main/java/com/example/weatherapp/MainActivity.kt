@@ -5,9 +5,11 @@ import android.content.Intent
 import android.net.wifi.WifiManager
 import android.os.AsyncTask
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.weatherapp.databinding.ActivityMainBinding
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
@@ -38,18 +40,20 @@ var clouds_graph = false
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding : ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
+        setContentView(binding.root)
 
         readTask().execute()
         progressBar.max = 50
 
-        val btnTimeFormat: Button = findViewById(R.id.btnTimeFormat);
-        val btnHistory: Button = findViewById(R.id.history_btn);
 
         //12H OR 24H FORMAT
-        btnTimeFormat.setOnClickListener{
+        binding.btnTimeFormat.setOnClickListener{
             if(english)
             {
                 english = false
@@ -63,20 +67,17 @@ class MainActivity : AppCompatActivity() {
             readTask().execute()
         }
         //TEMPERATURE MORE INFO
-        val button4 : Button = findViewById(R.id.temperature_btn)
-        button4.setOnClickListener{ startActivity(Intent(this, TemperatureActivity::class.java)) }
+        binding.btnTemperature.setOnClickListener{ startActivity(Intent(this, TemperatureActivity::class.java)) }
 
         //FORECAST
-        val f_btn : Button = findViewById(R.id.forecast_btn)
-        f_btn.setOnClickListener{ startActivity(Intent(this, ForecastActivity::class.java)) }
+        binding.btnForecast.setOnClickListener{ startActivity(Intent(this, ForecastActivity::class.java)) }
 
         //HISTORY ACTIVITY
-        btnHistory.setOnClickListener{ startActivity(Intent(this, HistoryActivity::class.java)) }
+        binding.btnHistory.setOnClickListener{ startActivity(Intent(this, HistoryActivity::class.java)) }
 
         //CITY INPUT
-        val button3 : Button = findViewById(R.id.search_btn)
-        button3.setOnClickListener{
-            location = findViewById<EditText>(R.id.city_input).text.toString()
+        binding.btnSearch.setOnClickListener{
+            location = binding.inputCity.text.toString()
             readTask().execute()
         }
 
@@ -91,7 +92,6 @@ class MainActivity : AppCompatActivity() {
             }
             catch (e: Exception)
             {
-                //findViewById<TextView>(R.id.location_txt).text = e.toString()
                 data = null
             }
             return data
@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
 
                 //LOCATION
                 loc = jsonObj.getString("name")+", "+sys.getString("country")
-                findViewById<TextView>(R.id.location_txt).text = loc
+                binding.txtLocation.text = loc
 
                 //LAST UPDATE
                 update_t = jsonObj.getLong("dt")
@@ -123,21 +123,21 @@ class MainActivity : AppCompatActivity() {
                     update_text = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH).format(Date(update_t))
                 }
 
-                findViewById<TextView>(R.id.update_time).text =  update_text
+                binding.txtLastUpdate.text =  update_text
 
                 //TEMPERATURE
                 temp =  main.getDouble("temp").toInt()
                 progressBar.progress = temp
 
-                findViewById<TextView>(R.id.temperature).text = temp.toString() + "°C"
+                binding.temperature.text = temp.toString() + "°C"
 
                 //PRESSURE, WIND
                 humidity = main.getString("humidity")
                 pressure_v = main.getString("pressure")
 
                 v_wind = wind.getString("speed")
-                findViewById<TextView>(R.id.wind).text = v_wind + " m/s"
-                findViewById<TextView>(R.id.pressure).text = pressure_v + " hPa"
+                binding.wind.text = v_wind + " m/s"
+                binding.pressure.text = pressure_v + " hPa"
 
                 //SUNRISE, SUNSET
                 var sunrise:Long = sys.getLong("sunrise")
@@ -157,8 +157,8 @@ class MainActivity : AppCompatActivity() {
                     sunrise_text = SimpleDateFormat("HH:mm", Locale.ENGLISH).format(Date(sunrise))
                     sunset_text = SimpleDateFormat("HH:mm", Locale.ENGLISH).format(Date(sunset))
                 }
-                findViewById<TextView>(R.id.sunrise).text = sunrise_text
-                findViewById<TextView>(R.id.sunset).text = sunset_text
+                binding.sunrise.text = sunrise_text
+                binding.sunset.text = sunset_text
 
                 //TEMPERATURE - MORE INFO
                 feels_like =  main.getString("feels_like")
@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity() {
 
                 val weather = jsonObj.getJSONArray("weather").getJSONObject(0)
                 val main_icon = weather.getString("icon")
-                Picasso.get().load("http://openweathermap.org/img/wn/" + main_icon +"@2x.png").resize(400,400).into(findViewById<ImageView>(R.id.info_view3))
+                Picasso.get().load("http://openweathermap.org/img/wn/" + main_icon +"@2x.png").resize(400,400).into(binding.infoView3)
 
 
             }
@@ -208,15 +208,6 @@ class MainActivity : AppCompatActivity() {
 
             fos.close()
 
-            var toast_text : String
-            if(english)
-            {
-                toast_text = "Data saved"
-            }
-            else
-            {
-                toast_text = "Dane zapisano"
-            }
             Toast.makeText(this@MainActivity, getString(R.string.toast_save_text), Toast.LENGTH_SHORT).show()
 
         }

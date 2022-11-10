@@ -8,26 +8,26 @@
     tools:context=".ForecastActivity">
 
     <Button
-        android:id="@+id/clouds_graph_btn"
+        android:id="@+id/cloudsGraphBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin30"
         android:backgroundTint="@android:color/holo_orange_dark"
         android:text="@string/cloudiness"
-        app:layout_constraintBottom_toBottomOf="@+id/temp_graph_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/tempGraphBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/temp_graph_btn" />
+        app:layout_constraintTop_toTopOf="@+id/tempGraphBtn" />
 
     <Button
-        android:id="@+id/pop_graph_btn"
+        android:id="@+id/popGraphBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@android:color/holo_orange_dark"
         android:text="@string/rain"
-        app:layout_constraintBottom_toBottomOf="@+id/temp_graph_btn"
-        app:layout_constraintEnd_toStartOf="@+id/clouds_graph_btn"
-        app:layout_constraintStart_toEndOf="@+id/temp_graph_btn"
-        app:layout_constraintTop_toTopOf="@+id/temp_graph_btn" />
+        app:layout_constraintBottom_toBottomOf="@+id/tempGraphBtn"
+        app:layout_constraintEnd_toStartOf="@+id/cloudsGraphBtn"
+        app:layout_constraintStart_toEndOf="@+id/tempGraphBtn"
+        app:layout_constraintTop_toTopOf="@+id/tempGraphBtn" />
 
     <ImageView
         android:id="@+id/image8"
@@ -118,7 +118,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/temp_graph_btn"
+        android:id="@+id/tempGraphBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin30"
@@ -129,12 +129,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/graph_txt"
+        android:id="@+id/graphTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin30"
         android:text="temperature"
-        android:textColor="@android:color/holo_orange_dark"
+        android:textColor="@color/dark_orange"
         android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -5,10 +5,10 @@ import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.AsyncTask
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
+import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.weatherapp.databinding.ActivityForecastBinding
 import com.squareup.picasso.Picasso
 import org.json.JSONObject
 import java.net.URL
@@ -24,32 +24,33 @@ var x = Array(size) {""}
 var icons = Array(size) {""}
 
 class ForecastActivity : AppCompatActivity() {
+
+    private lateinit var binding : ActivityForecastBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_forecast)
+        binding = ActivityForecastBinding.inflate(LayoutInflater.from(this))
+        setContentView(binding.root)
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
 
         readForecast().execute()
 
         //TEMPERATURE GRAPH
-        val t_btn: Button = findViewById(R.id.temp_graph_btn)
-        t_btn.setOnClickListener {
+        binding.tempGraphBtn.setOnClickListener {
             temp_graph = true
             pop_graph = false
             clouds_graph = false
             startActivity(Intent(this, TempGraphActivity::class.java))
         }
         //POP GRAPH
-        val p_btn: Button = findViewById(R.id.pop_graph_btn)
-        p_btn.setOnClickListener {
+        binding.popGraphBtn.setOnClickListener {
             temp_graph = false
             pop_graph = true
             clouds_graph = false
             startActivity(Intent(this, TempGraphActivity::class.java))
         }
         //CLOUDS GRAPH
-        val c_btn: Button = findViewById(R.id.clouds_graph_btn)
-        c_btn.setOnClickListener {
+        binding.cloudsGraphBtn.setOnClickListener {
             temp_graph = false
             pop_graph = false
             clouds_graph = true
@@ -95,11 +96,11 @@ class ForecastActivity : AppCompatActivity() {
                     for (i in 0 until cnt) {
                         forecast_text += data_axis[i] + "                    " + temperatures[i].toString() + "°C" + System.lineSeparator() + System.lineSeparator() }
 
-                    findViewById<TextView>(R.id.graph_txt).text = forecast_text
+                    binding.graphTxt.text = forecast_text
 
-                    val images = arrayOf(findViewById<ImageView>(R.id.image0), findViewById(R.id.image1), findViewById(R.id.image2),
-                        findViewById(R.id.image3), findViewById(R.id.image4), findViewById(R.id.image5),
-                        findViewById(R.id.image6), findViewById(R.id.image7), findViewById(R.id.image8))
+                    val images = arrayOf(binding.image0, binding.image1, binding.image2,
+                        binding.image3, binding.image4, binding.image5,binding.image6,
+                        binding.image7,binding.image8)
 
                     for(i in 0 until cnt)
                     {
@@ -111,7 +112,7 @@ class ForecastActivity : AppCompatActivity() {
                 catch (e: Exception)
                 {
                     val error = e.toString()
-                    findViewById<TextView>(R.id.graph_txt).text = error
+                    binding.graphTxt.text = error
 
                 }
 

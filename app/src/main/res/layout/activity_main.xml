@@ -8,18 +8,18 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/forecast_btn"
+        android:id="@+id/btnForecast"
         android:layout_width="50sp"
-        android:layout_height="40sp"
+        android:layout_height="48dp"
         android:layout_marginEnd="@dimen/margin30"
         android:backgroundTint="@android:color/holo_orange_dark"
         android:text="->"
         app:layout_constraintBottom_toTopOf="@+id/pressure"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/temperature_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/btnTemperature" />
 
     <ImageView
-        android:id="@+id/info_view3"
+        android:id="@+id/infoView3"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="@dimen/margin50"
@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/city_input"
+        app:layout_constraintTop_toBottomOf="@+id/inputCity"
         app:srcCompat="@drawable/icon"
         app:tint="@android:color/holo_orange_dark" />
 
@@ -88,7 +88,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/history_btn"
+        android:id="@+id/btnHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="275dp"
@@ -99,9 +99,9 @@
         app:layout_constraintTop_toTopOf="@+id/save" />
 
     <Button
-        android:id="@+id/temperature_btn"
+        android:id="@+id/btnTemperature"
         android:layout_width="50sp"
-        android:layout_height="40sp"
+        android:layout_height="48dp"
         android:layout_marginTop="@dimen/margin50"
         android:backgroundTint="@android:color/holo_orange_dark"
         android:text="..."
@@ -117,7 +117,7 @@
         android:text="@string/city"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/city_input"
+        app:layout_constraintStart_toStartOf="@+id/inputCity"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -180,7 +180,7 @@
         app:layout_constraintTop_toTopOf="@+id/pressure_view" />
 
     <TextView
-        android:id="@+id/location_txt"
+        android:id="@+id/txtLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin30"
@@ -189,17 +189,17 @@
         android:textSize="40sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/city_input" />
+        app:layout_constraintTop_toBottomOf="@+id/inputCity" />
 
     <TextView
-        android:id="@+id/update_time"
+        android:id="@+id/txtLastUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/location_txt" />
+        app:layout_constraintTop_toBottomOf="@+id/txtLocation" />
 
     <TextView
         android:id="@+id/temperature"
@@ -214,7 +214,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/city_input"
+        android:id="@+id/inputCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin30"
@@ -222,20 +222,21 @@
         android:ems="10"
         android:importantForAutofill="no"
         android:inputType="text"
+        android:minHeight="48dp"
         android:textColor="@android:color/holo_orange_dark"
-        app:layout_constraintEnd_toStartOf="@+id/search_btn"
+        app:layout_constraintEnd_toStartOf="@+id/btnSearch"
         app:layout_constraintTop_toBottomOf="@+id/city_text" />
 
     <Button
-        android:id="@+id/search_btn"
+        android:id="@+id/btnSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin30"
         android:backgroundTint="@android:color/holo_orange_dark"
         android:text="@string/search"
-        app:layout_constraintBottom_toBottomOf="@+id/city_input"
+        app:layout_constraintBottom_toBottomOf="@+id/inputCity"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/city_input"
+        app:layout_constraintTop_toTopOf="@+id/inputCity"
         app:rippleColor="@color/black" />
 
     <ImageView
@@ -259,7 +260,7 @@
         app:layout_constraintBottom_toTopOf="@+id/wind"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info_view3" />
+        app:layout_constraintTop_toBottomOf="@+id/infoView3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
