@@ -1,18 +1,22 @@
 package com.example.weatherapp
 
-import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
+import android.view.LayoutInflater
+import com.example.weatherapp.databinding.ActivityTemperatureBinding
 
 class TemperatureActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityTemperatureBinding
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tempeature)
 
-        findViewById<TextView>(R.id.valueTemperature).text = temp.toString() + "°C"
-        findViewById<TextView>(R.id.valueFeelsLike).text = feels_like + "°C"
-        findViewById<TextView>(R.id.valueTemperatureMin).text = temp_min + "°C"
-        findViewById<TextView>(R.id.valueTemperatureMax).text = temp_max + "°C"
+        super.onCreate(savedInstanceState)
+
+        binding = ActivityTemperatureBinding.inflate(LayoutInflater.from(this))
+        setContentView(binding.root)
+
+        binding.valueTemperature.text = getString(R.string.tempValue, temp.toString())
+        binding.valueFeelsLike.text = getString(R.string.tempValue, feels_like)
+        binding.valueTemperatureMin.text = getString(R.string.tempValue, temp_min)
+        binding.valueTemperatureMax.text = getString(R.string.tempValue, temp_max)
     }
 }

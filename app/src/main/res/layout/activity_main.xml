@@ -9,25 +9,24 @@
 
     <Button
         android:id="@+id/btnForecast"
-        android:layout_width="50sp"
-        android:layout_height="48dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin30"
         android:backgroundTint="@android:color/holo_orange_dark"
         android:text="->"
-        app:layout_constraintBottom_toTopOf="@+id/pressure"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnTemperature" />
+        app:layout_constraintStart_toStartOf="@+id/btnHistory"
+        app:layout_constraintTop_toTopOf="@+id/btnTemperature" />
 
     <ImageView
         android:id="@+id/infoView3"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="@dimen/margin50"
-        app:layout_constraintBottom_toTopOf="@+id/temperature"
+        app:layout_constraintBottom_toBottomOf="@+id/temperature"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputCity"
+        app:layout_constraintTop_toBottomOf="@+id/btnSearch"
         app:srcCompat="@drawable/icon"
         app:tint="@android:color/holo_orange_dark" />
 
@@ -35,8 +34,9 @@
         android:id="@+id/sunset_view"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="@dimen/margin30"
-        app:layout_constraintBottom_toTopOf="@+id/save"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="@dimen/margin50"
+        app:layout_constraintBottom_toTopOf="@+id/btnTemperature"
         app:layout_constraintStart_toStartOf="@+id/pressure_view"
         app:srcCompat="@drawable/sunset"
         app:tint="@android:color/holo_orange_dark" />
@@ -55,10 +55,9 @@
         android:id="@+id/wind_view"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="@dimen/margin30"
-        app:layout_constraintBottom_toBottomOf="@+id/pressure_view"
+        android:layout_marginStart="36dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/pressure_view"
+        app:layout_constraintTop_toTopOf="@+id/wind"
         app:srcCompat="@drawable/wind"
         app:tint="@android:color/holo_orange_dark" />
 
@@ -67,47 +66,46 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="@dimen/margin50"
-        android:layout_marginBottom="@dimen/margin30"
-        app:layout_constraintBottom_toTopOf="@+id/sunset_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/wind"
         app:srcCompat="@drawable/pressure"
         app:tint="@android:color/holo_orange_dark" />
 
     <Button
-        android:id="@+id/save"
-        android:layout_width="wrap_content"
+        android:id="@+id/btnSave"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin30"
+        android:layout_marginStart="@dimen/margin30"
+        android:layout_marginEnd="@dimen/margin30"
+        android:layout_marginBottom="28dp"
         android:backgroundTint="@android:color/holo_orange_dark"
-        android:onClick="save"
         android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/btnHistory"
+        app:layout_constraintStart_toEndOf="@+id/btnTimeFormat" />
 
     <Button
         android:id="@+id/btnHistory"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="275dp"
+        android:layout_marginEnd="@dimen/margin30"
         android:backgroundTint="@android:color/holo_orange_dark"
         android:text="@string/history"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/save" />
+        app:layout_constraintTop_toTopOf="@+id/btnSave" />
 
     <Button
         android:id="@+id/btnTemperature"
-        android:layout_width="50sp"
-        android:layout_height="48dp"
-        android:layout_marginTop="@dimen/margin50"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:backgroundTint="@android:color/holo_orange_dark"
-        android:text="..."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/progressBar" />
+        android:text="°C"
+        app:layout_constraintBottom_toTopOf="@+id/btnSave"
+        app:layout_constraintEnd_toEndOf="@+id/btnSave"
+        app:layout_constraintStart_toStartOf="@+id/btnSave" />
 
     <TextView
         android:id="@+id/city_text"
@@ -122,24 +120,23 @@
 
     <Button
         android:id="@+id/btnTimeFormat"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="275dp"
+        android:layout_marginStart="@dimen/margin30"
         android:backgroundTint="@android:color/holo_orange_dark"
         android:text="12H"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/save" />
+        app:layout_constraintTop_toTopOf="@+id/btnSave" />
 
     <TextView
         android:id="@+id/sunset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin40"
         android:text="sunset"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="@+id/sunset_view"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/sunset_view"
         app:layout_constraintTop_toTopOf="@+id/sunset_view" />
 
@@ -159,13 +156,14 @@
         android:id="@+id/wind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
         android:text="wind"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="26sp"
-        app:layout_constraintBottom_toBottomOf="@+id/pressure_view"
+        app:layout_constraintBottom_toTopOf="@+id/sunrise"
         app:layout_constraintEnd_toStartOf="@+id/pressure_view"
-        app:layout_constraintStart_toEndOf="@+id/wind_view"
-        app:layout_constraintTop_toTopOf="@+id/pressure_view" />
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toEndOf="@+id/wind_view" />
 
     <TextView
         android:id="@+id/pressure"
@@ -207,7 +205,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
         android:textColor="@android:color/holo_orange_dark"
-        android:textSize="36sp"
+        android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -238,29 +236,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/inputCity"
         app:rippleColor="@color/black" />
-
-    <ImageView
-        android:id="@+id/temperature_view"
-        android:layout_width="150dp"
-        android:layout_height="800dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/thermomether"
-        app:tint="@android:color/holo_orange_dark" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="85dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="280dp"
-        android:layout_marginBottom="175dp"
-        android:rotation="-90"
-        app:layout_constraintBottom_toTopOf="@+id/wind"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/infoView3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

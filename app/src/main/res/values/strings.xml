@@ -9,14 +9,20 @@
     <string name="save_error">Nieudany zapis.</string>
     <string name="more_info">Więcej informacji o temperaturze:</string>
     <string name="temperature">Temperatura:</string>
-    <string name="feels_lile">Odczuwalna:</string>
+    <string name="feels_like">Odczuwalna:</string>
     <string name="min_temperature">Temperatura min.:</string>
     <string name="max_temperature">Temperatura max.:</string>
     <string name="celsius_degrees" translatable="false">°C</string>
     <string name="rain">% OPADY</string>
     <string name="cloudiness">% CHMURY</string>
     <string name="input_error">Miasto nie znalezione.</string>
-    <string name="clear">Wyczyść.</string>
-
-
+    <string name="clear">Wyczyść</string>
+    <string name="pressure" translatable="false">%1$s hPa</string>
+    <string name="wind" translatable="false">%1$s m/s</string>
+    <string name="tempValue" translatable="false">%1$s °C</string>
+    <string name="text12h" translatable="false">12h</string>
+    <string name="text24h" translatable="false">24h</string>
+    <string name="temperatureGraphTitle">Temperatura, °C</string>
+    <string name="precipitationGraphTitle">Opady, %</string>
+    <string name="cloudinessGraphTitle">Zachmurzenie, % </string>
 </resources>

@@ -40,7 +40,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="700dp"
         android:backgroundTint="@android:color/holo_orange_dark"
-        android:onClick="clear"
         android:text="@string/clear"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
