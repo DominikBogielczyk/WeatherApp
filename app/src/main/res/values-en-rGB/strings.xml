@@ -21,4 +21,5 @@
     <string name="precipitationGraphTitle">Probability of precipitation, %</string>
     <string name="cloudinessGraphTitle">Cloudiness, % </string>
     <string name="JSON_error">JSON error</string>
+    <string name="tomorrow">Next 24h</string>
 </resources>

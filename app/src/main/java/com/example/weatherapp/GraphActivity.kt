@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
@@ -16,10 +17,10 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 
 
-class TempGraphActivity : AppCompatActivity() {
+class GraphActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_temp_graph)
+        setContentView(R.layout.activity_graph)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
         val data = ArrayList<Entry>()
@@ -47,50 +48,49 @@ class TempGraphActivity : AppCompatActivity() {
             }
         }
 
+        val lineChart: LineChart by lazy { findViewById(R.id.lineChart) }
         val dataset = LineDataSet(data, "")
 
-        dataset.setDrawValues(true)
-        dataset.setDrawFilled(true)
-        dataset.lineWidth = 5f
-        dataset.valueTextColor = Color.rgb(255, 255, 83)
-        dataset.valueTextSize = 20F
+        dataset.apply {
+            setDrawValues(true)
+            setDrawFilled(true)
+            lineWidth = 5f
+            valueTextColor = Color.rgb(255, 255, 83)
+            valueTextSize = 20F
+            fillColor = ContextCompat.getColor(this@GraphActivity, R.color.dark_orange)
+            fillAlpha = 100
+            color = ContextCompat.getColor(this@GraphActivity, R.color.dark_orange)
+            valueTextSize = 16f
+        }
 
-        val lineChart = findViewById<com.github.mikephil.charting.charts.LineChart>(R.id.lineChart)
-
-        dataset.fillColor = ContextCompat.getColor(this, R.color.dark_orange)
-        dataset.fillAlpha = 100
-        dataset.color = ContextCompat.getColor(this, R.color.dark_orange)
-        dataset.valueTextSize = 16f
-        // dataset.setValueTextColors(mutableListOf(255, 255, 255))
         lineChart.data = LineData(dataset)
-        lineChart.axisRight.isEnabled = false
-
-        lineChart.setTouchEnabled(true)
-        lineChart.setPinchZoom(true)
-        lineChart.animateX(1800, Easing.EaseInExpo)
-        lineChart.xAxis.setAvoidFirstLastClipping(false)
         lineChart.xAxis.valueFormatter = IndexAxisValueFormatter(x)
-        lineChart.xAxis.textColor = ContextCompat.getColor(this, R.color.dark_orange)
-        lineChart.xAxis.textSize = 20F
-
-        lineChart.getAxis(YAxis.AxisDependency.LEFT).textColor =
-            ContextCompat.getColor(this, R.color.dark_orange)
-        lineChart.getAxis(YAxis.AxisDependency.LEFT).textSize = 20F
-        lineChart.getAxis(YAxis.AxisDependency.LEFT).axisMinimum = 0F
-        lineChart.xAxis.granularity = 1.0f
+        lineChart.apply {
+            axisRight.isEnabled = false
+            setTouchEnabled(true)
+            setPinchZoom(true)
+            animateX(1800, Easing.EaseInExpo)
+            xAxis.apply {
+                setAvoidFirstLastClipping(false)
+                textColor = ContextCompat.getColor(this@GraphActivity, R.color.dark_orange)
+                textSize = 20F
+                granularity = 1.0f
+            }
+            getAxis(YAxis.AxisDependency.LEFT).apply {
+                textColor = ContextCompat.getColor(this@GraphActivity, R.color.dark_orange)
+                textSize = 20F
+               // axisMinimum = 0F
+                axisMaximum = 100F
+            }
+            setExtraOffsets(20F, 50F, 50F, 50F)
+            legend.isEnabled = false
+            description = Description().apply { text = "" }
+        }
 
         if (temp_graph) {
             val m: Int = temperatures.maxOrNull() ?: 0
             lineChart.getAxis(YAxis.AxisDependency.LEFT).axisMaximum = (m * 1.2).toFloat()
         }
-
-        lineChart.setExtraOffsets(20F, 50F, 50F, 50F)
-
-        lineChart.legend.isEnabled = false
-
-        val description = Description()
-        description.text = ""
-        lineChart.description = description
     }
 
 }

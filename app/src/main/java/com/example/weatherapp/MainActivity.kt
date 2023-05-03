@@ -11,6 +11,10 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import org.json.JSONObject
+import java.io.BufferedWriter
+import java.io.File
+import java.io.FileWriter
+import java.io.IOException
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
@@ -51,13 +55,12 @@ class MainActivity : AppCompatActivity() {
 
         //12H OR 24H FORMAT
         binding.btnTimeFormat.setOnClickListener {
-            if (english) {
-                english = false
+            if (english)
                 btnTimeFormat.text = getString(R.string.text12h)
-            } else {
-                english = true
+            else
                 btnTimeFormat.text = getString(R.string.text24h)
-            }
+
+            english = !english
             ReadTask().execute()
         }
         //TEMPERATURE MORE INFO
@@ -100,28 +103,23 @@ class MainActivity : AppCompatActivity() {
         binding.btnSave.setOnClickListener {
             //DATA TO FILE
             val filename = "logs.csv"
-            val fos = openFileOutput(filename, MODE_APPEND)
-            val v1 =
-                SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH).format(Date(update_t)) + ","
+            val file = File(applicationContext.filesDir, filename)
+
+            val v1 = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH).format(Date(update_t)) + ","
+            val data = "$v1 $loc\n$temp°C, $humidity%, $pressure_v hPa\n\n"
 
             try {
-                fos.write(("$v1 $loc").toByteArray())
-                //NEW LINE
-                fos.write(System.getProperty("line.separator")?.toByteArray())
-
-                fos.write((temp.toString() + "°C, " + humidity + "%, " + pressure_v + "hPa").toByteArray())
-                fos.write(System.getProperty("line.separator")?.toByteArray())
-                fos.write(System.getProperty("line.separator")?.toByteArray())
-
-                fos.close()
-
+                val fileWriter = FileWriter(file, true)
+                val bufferedWriter = BufferedWriter(fileWriter)
+                bufferedWriter.write(data)
+                bufferedWriter.close()
                 Toast.makeText(
                     this@MainActivity,
                     getString(R.string.toast_save_text),
                     Toast.LENGTH_SHORT
                 ).show()
-
-            } catch (e: Exception) {
+            } catch (e: IOException) {
+                e.printStackTrace()
                 Toast.makeText(this@MainActivity,
                     getString(R.string.save_error),
                     Toast.LENGTH_SHORT)
@@ -141,7 +139,7 @@ class MainActivity : AppCompatActivity() {
         fun execute() = launch {
             val result = readData()
             withContext(Dispatchers.Main) {
-                if (result != "")
+                if (result != "") //if URL return correct data
                     handleData(result)
             }
         }
@@ -187,20 +185,17 @@ class MainActivity : AppCompatActivity() {
                 binding.txtLocation.text = loc
 
                 //LAST UPDATE
-                update_t = jsonObj.getLong("dt")
-                update_t *= 1000
+                update_t = jsonObj.getLong("dt") * 1000
 
                 val updateText: String? = if (english) {
                     SimpleDateFormat("dd/MM/yyyy hh:mm a", Locale.ENGLISH).format(Date(update_t))
                 } else {
                     SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH).format(Date(update_t))
                 }
-
                 binding.txtLastUpdate.text = updateText
 
                 //TEMPERATURE
                 temp = main.getDouble("temp").toInt()
-
                 binding.temperature.text = getString(R.string.tempValue, temp.toString())
 
                 //PRESSURE, WIND
@@ -212,22 +207,16 @@ class MainActivity : AppCompatActivity() {
                 binding.pressure.text = getString(R.string.pressure, pressure_v)
 
                 //SUNRISE, SUNSET
-                var sunrise: Long = sys.getLong("sunrise")
-                sunrise *= 1000
-                var sunset: Long = sys.getLong("sunset")
-                sunset *= 1000
+                val sunrise: Long = sys.getLong("sunrise") * 1000
+                val sunset: Long = sys.getLong("sunset") * 1000
 
-                val sunriseText: String?
-                val sunsetText: String?
-                if (english) {
-                    sunriseText = SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(sunrise))
-                    sunsetText = SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(Date(sunset))
+                val dateFormat = if (english) {
+                    SimpleDateFormat("hh:mm a", Locale.ENGLISH)
                 } else {
-                    sunriseText = SimpleDateFormat("HH:mm", Locale.ENGLISH).format(Date(sunrise))
-                    sunsetText = SimpleDateFormat("HH:mm", Locale.ENGLISH).format(Date(sunset))
+                    SimpleDateFormat("HH:mm", Locale.ENGLISH)
                 }
-                binding.sunrise.text = sunriseText
-                binding.sunset.text = sunsetText
+                binding.sunrise.text = dateFormat.format(Date(sunrise))
+                binding.sunset.text = dateFormat.format(Date(sunset))
 
                 //TEMPERATURE - MORE INFO
                 feels_like = main.getString("feels_like")
@@ -244,7 +233,7 @@ class MainActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
                         this@MainActivity,
-                        getString(R.string.input_error),
+                        getString(R.string.JSON_error),
                         Toast.LENGTH_SHORT
                     ).show()
                 }

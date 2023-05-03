@@ -26,4 +26,5 @@
     <string name="precipitationGraphTitle">Opady, %</string>
     <string name="cloudinessGraphTitle">Zachmurzenie, % </string>
     <string name="JSON_error">Problem z JSONem</string>
+    <string name="tomorrow">Jutro</string>
 </resources>

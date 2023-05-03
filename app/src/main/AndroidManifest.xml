@@ -17,7 +17,7 @@
         android:theme="@style/Theme.WeatherApp">
 
         <activity
-            android:name=".TempGraphActivity"
+            android:name=".GraphActivity"
             android:exported="false" />
         <activity
             android:name=".ForecastActivity"

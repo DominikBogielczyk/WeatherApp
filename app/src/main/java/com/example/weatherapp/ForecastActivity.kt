@@ -1,6 +1,5 @@
 package com.example.weatherapp
 
-
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.net.wifi.WifiManager
@@ -42,21 +41,21 @@ class ForecastActivity : AppCompatActivity() {
             temp_graph = true
             pop_graph = false
             clouds_graph = false
-            startActivity(Intent(this, TempGraphActivity::class.java))
+            startActivity(Intent(this, GraphActivity::class.java))
         }
         //POP GRAPH
         binding.popGraphBtn.setOnClickListener {
             temp_graph = false
             pop_graph = true
             clouds_graph = false
-            startActivity(Intent(this, TempGraphActivity::class.java))
+            startActivity(Intent(this, GraphActivity::class.java))
         }
         //CLOUDS GRAPH
         binding.cloudsGraphBtn.setOnClickListener {
             temp_graph = false
             pop_graph = false
             clouds_graph = true
-            startActivity(Intent(this, TempGraphActivity::class.java))
+            startActivity(Intent(this, GraphActivity::class.java))
         }
     }
 
@@ -78,9 +77,7 @@ class ForecastActivity : AppCompatActivity() {
         private suspend fun readData(): String {
             var forecastData = ""
             try {
-                forecastData =
-                URL("https://api.openweathermap.org/data/2.5/forecast?q=$location&units=metric&cnt=$cnt&appid=$key").readText(
-                    Charsets.UTF_8)
+                forecastData = URL("https://api.openweathermap.org/data/2.5/forecast?q=$location&units=metric&cnt=$cnt&appid=$key").readText(Charsets.UTF_8)
             } catch (e: Exception) {
                 // change to main UI thread
                 withContext(Dispatchers.Main) {
@@ -127,8 +124,9 @@ class ForecastActivity : AppCompatActivity() {
                     x[i] = SimpleDateFormat("HH:mm", Locale.ENGLISH).format(Date(forecastT))
                 }
 
+               // e.g. 03/05 20:00 image 13°C
                 for (i in 0 until cnt) {
-                    forecastText += data_axis[i] + "                    " + temperatures[i].toString() + "°C" + System.lineSeparator() + System.lineSeparator()
+                    forecastText += String.format("%-30s %d°C%n%n", data_axis[i], temperatures[i])
                 }
 
                 binding.graphTxt.text = forecastText
@@ -146,7 +144,6 @@ class ForecastActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 val error = e.toString()
                 binding.graphTxt.text = error
-
             }
         }
     }

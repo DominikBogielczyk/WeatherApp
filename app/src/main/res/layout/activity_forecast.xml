@@ -117,17 +117,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/tempGraphBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin30"
-        android:layout_marginBottom="@dimen/margin50"
-        android:backgroundTint="@android:color/holo_orange_dark"
-        android:text="@string/celsius_degrees"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/graphTxt"
         android:layout_width="wrap_content"
@@ -138,6 +127,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/tempGraphBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin30"
+        android:layout_marginBottom="@dimen/margin50"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:text="@string/celsius_degrees"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/image0"

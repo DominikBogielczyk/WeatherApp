@@ -12,7 +12,6 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:rotation="0"
-        android:text="Temperature graph [°C]"
         android:textAlignment="center"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="36sp"
