@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btnForecast"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="@dimen/margin10"
+        android:layout_marginEnd="@dimen/margin30"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:text="->"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnTemperature"
+        app:layout_constraintTop_toTopOf="@+id/btnTemperature" />
+
+    <ImageView
+        android:id="@+id/infoView3"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon"
+        app:tint="@android:color/holo_orange_dark" />
+
+    <ImageView
+        android:id="@+id/sunset_view"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="@dimen/margin30"
+        app:layout_constraintBottom_toTopOf="@+id/btnTemperature"
+        app:layout_constraintStart_toStartOf="@+id/pressure_view"
+        app:srcCompat="@drawable/sunset"
+        app:tint="@android:color/holo_orange_dark" />
+
+    <ImageView
+        android:id="@+id/sunrise_view"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/sunset_view"
+        app:layout_constraintStart_toStartOf="@+id/wind_view"
+        app:layout_constraintTop_toTopOf="@+id/sunset_view"
+        app:srcCompat="@drawable/sunrise"
+        app:tint="@android:color/holo_orange_dark" />
+
+    <ImageView
+        android:id="@+id/wind_view"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintEnd_toEndOf="@+id/btnTimeFormat"
+        app:layout_constraintStart_toStartOf="@+id/btnTimeFormat"
+        app:layout_constraintTop_toTopOf="@+id/wind"
+        app:srcCompat="@drawable/wind"
+        app:tint="@android:color/holo_orange_dark" />
+
+    <ImageView
+        android:id="@+id/pressure_view"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintEnd_toEndOf="@+id/btnSave"
+        app:layout_constraintStart_toStartOf="@+id/btnSave"
+        app:layout_constraintTop_toTopOf="@+id/wind"
+        app:srcCompat="@drawable/pressure"
+        app:tint="@android:color/holo_orange_dark" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin10"
+        android:layout_marginEnd="@dimen/margin10"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:text="@string/save"
+        app:layout_constraintEnd_toStartOf="@+id/btnTemperature"
+        app:layout_constraintStart_toEndOf="@+id/btnHistory"
+        app:layout_constraintTop_toTopOf="@+id/btnHistory" />
+
+    <Button
+        android:id="@+id/btnHistory"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin10"
+        android:layout_marginEnd="@dimen/margin10"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:text="@string/history"
+        app:layout_constraintEnd_toStartOf="@+id/btnSave"
+        app:layout_constraintStart_toEndOf="@+id/btnTimeFormat"
+        app:layout_constraintTop_toTopOf="@+id/btnTimeFormat" />
+
+    <Button
+        android:id="@+id/btnTemperature"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin10"
+        android:layout_marginEnd="@dimen/margin10"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:text="°C"
+        app:layout_constraintEnd_toStartOf="@+id/btnForecast"
+        app:layout_constraintStart_toEndOf="@+id/btnSave"
+        app:layout_constraintTop_toTopOf="@+id/btnSave" />
+
+    <TextView
+        android:id="@+id/city_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin10"
+        android:text="@string/city"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/inputCity"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnTimeFormat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin30"
+        android:layout_marginEnd="@dimen/margin10"
+        android:layout_marginBottom="@dimen/margin30"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:text="12H"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnHistory"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/sunset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sunset"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="@+id/sunset_view"
+        app:layout_constraintEnd_toEndOf="@+id/btnTemperature"
+        app:layout_constraintStart_toStartOf="@+id/btnTemperature" />
+
+    <TextView
+        android:id="@+id/sunrise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sunrise"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="@+id/sunset_view"
+        app:layout_constraintEnd_toEndOf="@+id/wind"
+        app:layout_constraintStart_toStartOf="@+id/wind"
+        app:layout_constraintTop_toTopOf="@+id/sunset_view" />
+
+    <TextView
+        android:id="@+id/wind"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin30"
+        android:text="wind"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toTopOf="@+id/sunrise"
+        app:layout_constraintEnd_toEndOf="@+id/btnHistory"
+        app:layout_constraintStart_toStartOf="@+id/btnHistory" />
+
+    <TextView
+        android:id="@+id/pressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="pressure"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="@+id/btnTemperature"
+        app:layout_constraintStart_toStartOf="@+id/btnTemperature"
+        app:layout_constraintTop_toTopOf="@+id/pressure_view" />
+
+    <TextView
+        android:id="@+id/txtLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rotationX="0"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="@+id/temperature"
+        app:layout_constraintTop_toBottomOf="@+id/temperature" />
+
+    <TextView
+        android:id="@+id/txtLastUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/txtLocation"
+        app:layout_constraintStart_toStartOf="@+id/txtLocation"
+        app:layout_constraintTop_toBottomOf="@+id/txtLocation" />
+
+    <TextView
+        android:id="@+id/temperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="@+id/inputCity"
+        app:layout_constraintEnd_toStartOf="@+id/inputCity"
+        app:layout_constraintStart_toEndOf="@+id/infoView3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/inputCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin30"
+        android:layout_marginEnd="@dimen/margin10"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:textColor="@android:color/holo_orange_dark"
+        app:layout_constraintEnd_toStartOf="@+id/btnSearch"
+        app:layout_constraintTop_toBottomOf="@+id/city_text" />
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin30"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:text="@string/search"
+        app:layout_constraintBottom_toBottomOf="@+id/inputCity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/inputCity"
+        app:rippleColor="@color/black" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
