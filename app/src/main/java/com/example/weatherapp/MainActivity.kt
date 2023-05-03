@@ -2,7 +2,6 @@ package com.example.weatherapp
 
 import android.content.Intent
 import android.net.wifi.WifiManager
-import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.*
@@ -10,10 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.weatherapp.databinding.ActivityMainBinding
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.*
 import org.json.JSONObject
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.coroutines.CoroutineContext
 
 
 var location = "poznan,pl"
@@ -130,20 +131,51 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    inner class ReadTask : AsyncTask<String, Void, String>() {
-        override fun doInBackground(vararg params: String?): String? {
-            val data: String? = try {
-                URL("https://api.openweathermap.org/data/2.5/weather?q=$location&units=metric&lang=pl&appid=$key").readText(
-                    Charsets.UTF_8
-                )
+    inner class ReadTask : CoroutineScope {
+
+        private val job = Job()
+
+        override val coroutineContext: CoroutineContext
+            get() = job + Dispatchers.IO
+
+        fun execute() = launch {
+            val result = readData()
+            withContext(Dispatchers.Main) {
+                if (result != "")
+                    handleData(result)
+            }
+        }
+
+        private suspend fun readData(): String {
+            var data = ""
+            try {
+                data =
+                    URL("https://api.openweathermap.org/data/2.5/weather?q=$location&units=metric&lang=pl&appid=$key").readText(
+                        Charsets.UTF_8
+                    )
             } catch (e: Exception) {
-                null
+                // change to main UI thread
+                withContext(Dispatchers.Main) {
+                    val wifi = applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
+                    if (!wifi.isWifiEnabled) {
+                        Toast.makeText(
+                            this@MainActivity,
+                            getString(R.string.internet_error),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            this@MainActivity,
+                            getString(R.string.input_error),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
             }
             return data
         }
 
-        override fun onPostExecute(result: String?) {
-            super.onPostExecute(result)
+        private suspend fun handleData(result: String) {
             try {
                 val jsonObj = JSONObject(result)
                 val main = jsonObj.getJSONObject("main")
@@ -207,27 +239,16 @@ class MainActivity : AppCompatActivity() {
                 Picasso.get().load("http://openweathermap.org/img/wn/$mainIcon@2x.png")
                     .resize(400, 400).into(binding.infoView3)
 
-
             } catch (e: Exception) {
-                val wifi =
-                    applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
-                if (!wifi.isWifiEnabled) {
-                    Toast.makeText(
-                        this@MainActivity,
-                        getString(R.string.internet_error),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else {
+                // change to main UI thread
+                withContext(Dispatchers.Main) {
                     Toast.makeText(
                         this@MainActivity,
                         getString(R.string.input_error),
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-
-
             }
-
         }
     }
 }

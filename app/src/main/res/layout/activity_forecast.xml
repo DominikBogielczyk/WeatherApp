@@ -133,7 +133,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin30"
-        android:text="temperature"
         android:textColor="@color/dark_orange"
         android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="parent"

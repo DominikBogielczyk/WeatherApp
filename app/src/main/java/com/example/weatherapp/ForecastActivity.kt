@@ -3,16 +3,19 @@ package com.example.weatherapp
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
-import android.os.AsyncTask
+import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.weatherapp.databinding.ActivityForecastBinding
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.*
 import org.json.JSONObject
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.coroutines.CoroutineContext
 
 const val size = 10
 var clouds_v = Array(size) { 0 }
@@ -57,18 +60,50 @@ class ForecastActivity : AppCompatActivity() {
         }
     }
 
-    inner class ReadForecast : AsyncTask<String, Void, String>() {
-        override fun doInBackground(vararg params: String?): String? {
-            val historyData: String? = try {
+    inner class ReadForecast : CoroutineScope {
+
+        private val job = Job()
+
+        override val coroutineContext: CoroutineContext
+            get() = job + Dispatchers.IO
+
+        fun execute() = launch {
+            val result = readData()
+            withContext(Dispatchers.Main) {
+                if (result != "")
+                    handleData(result)
+            }
+        }
+
+        private suspend fun readData(): String {
+            var forecastData = ""
+            try {
+                forecastData =
                 URL("https://api.openweathermap.org/data/2.5/forecast?q=$location&units=metric&cnt=$cnt&appid=$key").readText(
                     Charsets.UTF_8)
             } catch (e: Exception) {
-                null
+                // change to main UI thread
+                withContext(Dispatchers.Main) {
+                    val wifi = applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
+                    if (!wifi.isWifiEnabled) {
+                        Toast.makeText(
+                            this@ForecastActivity,
+                            getString(R.string.internet_error),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    } else {
+                        Toast.makeText(
+                            this@ForecastActivity,
+                            getString(R.string.input_error),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
             }
-            return historyData
+            return forecastData
         }
 
-        override fun onPostExecute(result: String?) {
+        private fun handleData(result: String) {
             try {
                 val jsonObj = JSONObject(result)
                 var forecastText = ""
@@ -113,7 +148,6 @@ class ForecastActivity : AppCompatActivity() {
                 binding.graphTxt.text = error
 
             }
-
         }
     }
 }

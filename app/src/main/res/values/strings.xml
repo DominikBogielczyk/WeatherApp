@@ -25,4 +25,5 @@
     <string name="temperatureGraphTitle">Temperatura, °C</string>
     <string name="precipitationGraphTitle">Opady, %</string>
     <string name="cloudinessGraphTitle">Zachmurzenie, % </string>
+    <string name="JSON_error">Problem z JSONem</string>
 </resources>

@@ -20,4 +20,5 @@
     <string name="temperatureGraphTitle">Temperature, °C</string>
     <string name="precipitationGraphTitle">Probability of precipitation, %</string>
     <string name="cloudinessGraphTitle">Cloudiness, % </string>
+    <string name="JSON_error">JSON error</string>
 </resources>
